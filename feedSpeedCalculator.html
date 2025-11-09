@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feed & Speed Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header><h1>Feed & Speed Calculator</h1></header>
+
+  <main>
+    <!-- Tab navigation -->
+    <div class="tabs">
+      <button class="tablink active" onclick="openTab(event, 'endmillTab')">Endmill</button>
+      <button class="tablink" onclick="openTab(event, 'drillTab')">Drill</button>
+      <button class="tablink" onclick="openTab(event, 'threadTab')">Threading</button>
+    </div>
+
+    <!-- -------- Endmill Tab -------- -->
+    <section id="endmillTab" class="tabcontent" style="display:block;">
+      <h2>Endmill</h2>
+
+      <label>Tool Type</label>
+      <select id="toolType" onchange="updateCornerRadiusState()">
+        <option>Flat</option>
+        <option>Bull Nose</option>
+        <option>Ball Nose</option>
+      </select>
+
+      <label>Diameter (in)</label>
+      <input id="dia" type="number" value="0.50" step="0.01">
+
+      <label>Flutes</label>
+      <input id="flutes" type="number" value="3">
+
+      <label>Stickout (in)</label>
+      <input id="stickout" type="number" value="1.5" step="0.01">
+
+      <label>Stepover (%)</label>
+      <input id="stepover" type="number" value="25">
+
+      <label>Depth of Cut (in)</label>
+      <input id="depth" type="number" value="0.5" step="0.01">
+
+      <label>Corner Radius (in)</label>
+      <input id="cornerRadius" type="number" value="0" step="0.001">
+
+      <label>Material</label>
+      <select id="material">
+        <option>7075 Aluminum</option>
+        <option>6061 Aluminum</option>
+        <option>Stainless Steel</option>
+        <option>HRS Steel</option>
+      </select>
+
+      <label><input type="checkbox" id="hsm"> High Speed Machining</label>
+
+      <button onclick="calculateEndmill()">Calculate</button>
+
+      <p id="rpm">RPM: </p>
+      <p id="feedRate">Feed Rate (IPM): </p>
+      <p id="sfmOut">SFM: </p>
+      <p id="iptOut">Feed per Tooth (IPT): </p>
+      <p id="warnings" class="warn"></p>
+    </section>
+
+    <!-- -------- Drill Tab -------- -->
+    <section id="drillTab" class="tabcontent">
+      <h2>Drill</h2>
+
+      <label>Diameter (in)</label>
+      <input id="diaDrill" type="number" value="0.25" step="0.001">
+
+      <label>Flutes</label>
+      <input id="flutesDrill" type="number" value="2">
+
+      <label>Material</label>
+      <select id="drillMaterial">
+        <option>7075 Aluminum</option>
+        <option>6061 Aluminum</option>
+        <option>Stainless Steel</option>
+        <option>HRS Steel</option>
+      </select>
+
+      <label>Drill Type</label>
+      <select id="drillType">
+        <option>Drill</option>
+        <option>Spotter</option>
+        <option>Center Drill</option>
+        <option>Reamer</option>
+      </select>
+
+      <label>Stickout (in)</label>
+      <input id="stickoutDrill" type="number" value="1.0" step="0.01">
+
+      <label>Depth (in)</label>
+      <input id="depthDrill" type="number" value="1.0" step="0.01">
+
+      <label><input type="checkbox" id="pecking"> Pecking</label>
+
+      <button onclick="calculateDrill()">Calculate</button>
+
+      <p id="rpmDrill">RPM: </p>
+      <p id="feedDrill">Feed Rate (IPM): </p>
+      <p id="peckOut"></p>
+      <p id="drillWarn" class="warn"></p>
+    </section>
+
+    <!-- -------- Threading Tab -------- -->
+<section id="threadTab" class="tabcontent">
+  <h2>Threading</h2>
+
+  <label>Thread Type</label>
+  <select id="threadType" onchange="updateThreadSizes();updateThreadClasses();">
+    <option>UNC</option>
+    <option>UNF</option>
+    <option>UNEF</option>
+    <option>UNJ</option>
+    <option>ISO</option>
+  </select>
+
+  <label>Thread Size</label>
+  <select id="threadSize"></select>
+
+  <label>Thread Class</label>
+  <select id="threadClass"></select>
+
+  <label>Thread Depth (in)</label>
+  <input id="threadDepth" type="number" step="0.01" />
+
+  <label>Hole Type</label>
+  <select id="holeType">
+    <option>Through</option>
+    <option>Blind</option>
+  </select>
+
+  <label>Tap Type</label>
+  <select id="tapType">
+    <option>Cut Tap</option>
+    <option>Form Tap</option>
+  </select>
+
+  <label>Material</label>
+  <select id="threadMaterial">
+    <option>7075 Aluminum</option>
+    <option>6061 Aluminum</option>
+    <option>Stainless Steel</option>
+    <option>HRS Steel</option>
+  </select>
+
+  <button onclick="calculateThreading()">Calculate</button>
+
+  <h3>Results</h3>
+  <p id="rpmThread">RPM: </p>
+  <p id="feedThread">Feed Rate (IPM): </p>
+  <p id="threadPeck">Suggested Peck: </p>
+
+  <!-- 🔹 Added output block for geometry -->
+  <div id="threadGeometry" style="margin-top: 1em; border-top: 1px solid #ccc; padding-top: 0.5em;">
+    <h4>Thread Geometry</h4>
+    <p id="threadMajorDia"></p>
+    <p id="threadMinorDia"></p>
+    <p id="threadPitchDia"></p>
+    <p id="threadAllowance"></p>
+  </div>
+</section>
+
+</main>
+
+<!-- JSON loading and script injection -->
+<script>
+  Promise.all([
+    fetch("material.json").then(r => r.json()),
+    fetch("thread.json").then(r => r.json())
+  ])
+    .then(([materials, threads]) => {
+      window.materialsData = materials;
+      window.threadsData = threads;
+      console.log("✅ Material and thread data loaded successfully");
+    })
+    .catch(err => console.error("⚠ Failed to load JSON data:", err))
+    .finally(() => {
+      // After data is ready, load the main logic script
+      const script = document.createElement("script");
+      script.src = "script.js";
+      document.body.appendChild(script);
+    });
+</script>
+
+<!-- Tab switching logic -->
+<script>
+  function openTab(evt, tabName) {
+    const contents = document.getElementsByClassName("tabcontent");
+    for (let c of contents) c.style.display = "none";
+    const links = document.getElementsByClassName("tablink");
+    for (let l of links) l.classList.remove("active");
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+  }
+</script>
+</body>
+</html>
