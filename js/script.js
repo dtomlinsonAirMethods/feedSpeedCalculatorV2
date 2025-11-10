@@ -74,7 +74,7 @@ function calculateEndmill() {
     const stickout = parseFloat(document.getElementById("stickout").value);
     const stepover = parseFloat(document.getElementById("stepover").value) / 100;
     const depth = parseFloat(document.getElementById("depth").value);
-    const toolType = document.getElementById("toolType").value;
+    const toolType = document.querySelector('input[name="toolType"]:checked').value;
     const cornerRadius =
       toolType === "Bull Nose" || toolType === "Ball Nose"
         ? parseFloat(document.getElementById("cornerRadius").value)

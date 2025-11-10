@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feed & Speed Calculator</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <link rel="manifest" href="manifest.json">
 
 </head>
@@ -24,12 +24,14 @@
     <section id="endmillTab" class="tabcontent" style="display:block;">
       <h2>Endmill</h2>
 
-      <label>Tool Type</label>
-      <select id="toolType" onchange="updateCornerRadiusState()">
-        <option>Flat</option>
-        <option>Bull Nose</option>
-        <option>Ball Nose</option>
-      </select>
+    <div class="radio-row">
+      <label class="main">Tool Type</label>
+      <div class="radio-group-inline">
+        <label><input type="radio" name="toolType" value="Flat Endmill" checked> Flat</label>
+        <label><input type="radio" name="toolType" value="Bull Nose"> Bull</label>
+        <label><input type="radio" name="toolType" value="Ball Nose"> Ball</label>
+      </div>
+    </div>
 
       <label>Diameter (in)</label>
       <input id="dia" type="number" value="0.50" step="0.01">
@@ -57,7 +59,9 @@
         <option>HRS Steel</option>
       </select>
 
-      <label><input type="checkbox" id="hsm"> High Speed Machining</label>
+    <div class="checkbox-field">
+      <label>High Speed Machining (HSM)<input type="checkbox" id="hsm"></label>
+    </div>
 
       <button onclick="calculateEndmill()">Calculate</button>
 
@@ -182,9 +186,9 @@
 <!-- JSON loading and script injection -->
 <script>
   Promise.all([
-    fetch("material.json").then(r => r.json()),
-    fetch("thread.json").then(r => r.json()),
-    fetch("ipt.json").then(r => r.json())
+    fetch("data/material.json").then(r => r.json()),
+    fetch("data/thread.json").then(r => r.json()),
+    fetch("data/ipt.json").then(r => r.json())
   ])
     .then(([materials, threads, ipt]) => {
       window.materialsData = materials;
@@ -198,7 +202,7 @@
     })
     .finally(() => {
       const script = document.createElement("script");
-      script.src = "script.js";
+      script.src = "js/script.js";
       document.body.appendChild(script);
     });
 </script>
@@ -209,7 +213,7 @@
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker
-        .register("service-worker.js")
+        .register("js/service-worker.js")
         .then((reg) => console.log("✅ Service Worker registered:", reg.scope))
         .catch((err) => console.error("⚠ Service Worker registration failed:", err));
     });
