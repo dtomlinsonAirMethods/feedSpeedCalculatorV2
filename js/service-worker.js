@@ -1,14 +1,16 @@
 const CACHE_NAME = "feedSpeedCalculator-v1";
 const FILES_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./style.css",
-  "./script.js",
-  "./material.json",
-  "./thread.json",
-  "./ipt.json",
-  "./favicon.ico",
-  "./manifest.json"
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/styles/style.css',
+  '/js/script.js',
+  '/data/material.json',
+  '/data/thread.json',
+  '/data/ipt.json',
+  '/img/icon-192.png',
+  '/img/icon-512.png',
+  '/img/favicon.ico'
 ];
 
 self.addEventListener("install", (e) => {
