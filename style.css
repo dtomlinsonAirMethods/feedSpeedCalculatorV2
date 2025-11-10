@@ -3,8 +3,12 @@
   --panel: #1c1c1c;
   --text: #ffffff;
   --accent: #1e1e1e;
+  --brand: #1a73e8;
 }
 
+/* ------------------------------
+   Base layout & color theme
+------------------------------ */
 body {
   background: var(--bg);
   color: var(--text);
@@ -23,6 +27,9 @@ main {
   padding: 1rem;
 }
 
+/* ------------------------------
+   Tabs
+------------------------------ */
 .tabs {
   display: flex;
   justify-content: center;
@@ -36,12 +43,17 @@ main {
   padding: 0.75rem 1.5rem;
   cursor: pointer;
   font-weight: 600;
+  transition: background 0.2s ease-in-out;
 }
 
-.tablink.active {
+.tablink.active,
+.tablink:hover {
   background: var(--accent);
 }
 
+/* ------------------------------
+   Form Elements
+------------------------------ */
 .tabcontent {
   padding: 1rem;
 }
@@ -51,7 +63,8 @@ label {
   margin-top: 0.5rem;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 0.4rem;
   margin-top: 0.2rem;
@@ -71,13 +84,84 @@ button {
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s ease-in-out, transform 0.1s ease;
 }
 
 button:hover {
   background: #800000;
+  transform: scale(1.02);
 }
 
 .warn {
   margin-top: 0.5rem;
   white-space: pre-line;
+}
+
+/* ------------------------------
+   Install Banner Styles
+------------------------------ */
+.install-banner {
+  position: fixed;
+  bottom: -150px;
+  left: 0;
+  width: 100%;
+  background: var(--brand);
+  color: white;
+  text-align: center;
+  padding: 16px 10px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+  font-size: 1rem;
+  z-index: 9999;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: translateY(100%);
+}
+
+.install-banner.show {
+  opacity: 1;
+  transform: translateY(0);
+  bottom: 0;
+}
+
+.install-banner.hidden {
+  display: none;
+}
+
+.install-banner p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.banner-buttons {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.banner-buttons button {
+  padding: 6px 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  color: var(--brand);
+  transition: background 0.2s ease;
+}
+
+.banner-buttons button:hover {
+  background: #e0e0e0;
+}
+
+/* Small bounce animation for install banner */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

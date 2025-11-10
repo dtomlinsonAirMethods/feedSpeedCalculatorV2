@@ -55,6 +55,16 @@ function getDynamicIPT(toolType, material, dia) {
   return 0.002;
 }
 
+// --- Tab switching ---
+function openTab(evt, tabName) {
+    const contents = document.getElementsByClassName("tabcontent");
+    for (let c of contents) c.style.display = "none";
+    const links = document.getElementsByClassName("tablink");
+    for (let l of links) l.classList.remove("active");
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+  }
+
 // ----- Endmill calculation -----
 function calculateEndmill() {
   try {
