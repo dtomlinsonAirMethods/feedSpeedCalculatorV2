@@ -72,12 +72,11 @@ function calculateEndmill() {
     const mat = document.getElementById("material").value;
 
     let sfm = materialsData[mat].SFM_endmill;
-    let ipt = getDynamicIPT(mat, dia);
-    // for testing purposes
-    console.log(`DEBUG → Dynamic IPT selected for ${mat}, ${dia}": ${ipt}`);
+    let ipt = getDynamicIPT("endmill", mat, dia);
+    console.log(`DEBUG → Endmill IPT for ${mat}, dia=${dia}: ${ipt}`);
     let warningText = "";
 
-    // geometry warnings
+    // --- Geometry warnings ---
     if (toolType === "Bull Nose" && cornerRadius > dia / 2) {
       warningText += `⚠ Corner radius (${cornerRadius}) > half tool dia (${(dia / 2).toFixed(3)})\n`;
     }
@@ -94,11 +93,11 @@ function calculateEndmill() {
     if (stepover > 0.5) warningText += "⚠ Stepover >50% recommended\n";
     if (depth > dia) warningText += "⚠ Depth > diameter\n";
 
-    // tool type
+    // --- Tool type modifiers ---
     if (toolType === "Bull Nose") ipt *= 0.95;
     if (toolType === "Ball Nose") ipt *= 0.9;
 
-    // HSM modifiers
+    // --- HSM modifiers ---
     if (isHsm) {
       if (mat.includes("7075") || mat.includes("6061")) {
         sfm *= 1.25 + (stepover <= 0.2 ? 0.1 : 0) + (depth <= dia * 0.5 ? 0.05 : 0);
@@ -117,7 +116,7 @@ function calculateEndmill() {
     const rpm = Math.min(Math.round((sfm * 3.82) / dia), rpmLimit);
     const ipm = rpm * flutes * ipt * reduction;
 
-    // output
+    // --- Output ---
     document.getElementById("rpm").innerText = `RPM: ${rpm}`;
     document.getElementById("feedRate").innerText = `Feed Rate (IPM): ${ipm.toFixed(1)}`;
     document.getElementById("sfmOut").innerText = `SFM: ${sfm.toFixed(1)}`;
@@ -141,46 +140,58 @@ function calculateDrill() {
     const depth = parseFloat(document.getElementById("depthDrill").value);
     const pecking = document.getElementById("pecking").checked;
 
-    let sfm, ipr;
-    if (drillType === "drill") {
-      sfm = materialsData[mat].SFM_drill;
-      ipr = materialsData[mat].IPT_drill;
-    } else if (["spotter", "center drill"].includes(drillType)) {
-      sfm = materialsData[mat].SFM_spot;
-      ipr = 0.002;
+    // --- Base feed & speed data ---
+    let sfm = materialsData[mat]?.SFM_drill || 250;
+    let ipr = getDynamicIPT("drill", mat, dia);
+
+    // --- Adjust for special drill types ---
+    if (["spotter", "center drill"].includes(drillType)) {
+      sfm = materialsData[mat]?.SFM_spot || sfm;
+      ipr *= 0.5; // half feed for spotting tools
     } else if (drillType === "reamer") {
-      sfm = materialsData[mat].SFM_reamer;
-      ipr = 0.002;
-    } else {
-      sfm = materialsData[mat].SFM_drill;
-      ipr = materialsData[mat].IPT_drill;
+      sfm = materialsData[mat]?.SFM_reamer || sfm * 0.6;
+      ipr *= 0.4; // much lighter feed for reaming
     }
 
+    // --- Deep hole / stickout reductions ---
     const ratio = stickout / dia;
     let reduction = 1.0;
     let warningText = "";
     if (ratio > 5) {
       reduction = 0.7;
-      warningText = "⚠ Hole deep, feed reduced 30%";
+      warningText = "⚠ Stickout or depth high (S/D > 5), feed reduced 30%";
     } else if (ratio > 3) {
       reduction = 0.85;
-      warningText = "⚠ Hole deep, feed reduced 15%";
+      warningText = "⚠ Stickout moderate (S/D > 3), feed reduced 15%";
     }
 
-    let rpm = Math.floor((sfm * 12) / (Math.PI * dia));
+    // --- RPM & Feed calculations ---
+    let rpm = Math.floor((sfm * 3.82) / dia);
     rpm = Math.min(rpm, 9500);
     const ipm = rpm * flutes * ipr * reduction;
 
+    // --- Pecking logic ---
     const peckText = pecking
-      ? `Suggested peck: ${Math.min(depth, dia * 3).toFixed(3)} in`
+      ? `Suggested Peck: ${Math.min(depth, dia * 3).toFixed(3)} in`
       : "No pecking";
 
+    // --- Output ---
     document.getElementById("rpmDrill").innerText = `RPM: ${rpm}`;
     document.getElementById("feedDrill").innerText = `Feed Rate (IPM): ${ipm.toFixed(2)}`;
     document.getElementById("peckOut").innerText = peckText;
+
+    // --- Warning color ---
     const warn = document.getElementById("drillWarn");
     warn.innerText = warningText;
     warn.style.color = warningText ? "orange" : "green";
+
+    // --- Debug output (optional) ---
+    console.log(
+      `🧮 Drill Calc → Type: ${drillType}, Material: ${mat}, Dia: ${dia}, SFM: ${sfm}, IPT: ${ipr}, RPM: ${rpm}, IPM: ${ipm.toFixed(
+        2
+      )}`
+    );
+
   } catch (err) {
     alert("Input Error: " + err);
   }
@@ -192,7 +203,6 @@ function updateThreadSizes() {
   const sizeMenu = document.getElementById("threadSize");
   sizeMenu.innerHTML = "";
 
-  // threadsData[series] → { "size": {...} }
   const sizes = Object.keys(threadsData?.[ttype] || {});
   sizes.forEach((s) => {
     const opt = document.createElement("option");
@@ -200,6 +210,8 @@ function updateThreadSizes() {
     opt.textContent = s;
     sizeMenu.appendChild(opt);
   });
+
+  console.log(`🔹 Updated thread sizes for ${ttype}:`, sizes);
 
   // Auto-update class dropdown
   updateThreadClasses();
@@ -211,7 +223,6 @@ function updateThreadClasses() {
   const classMenu = document.getElementById("threadClass");
   classMenu.innerHTML = "";
 
-  // threadsData[series][size] → { pitch, 1A, 2A, ... }
   const classes = Object.keys(threadsData?.[ttype]?.[tsize] || {}).filter(
     (key) => key !== "pitch"
   );
@@ -222,6 +233,8 @@ function updateThreadClasses() {
     opt.textContent = c;
     classMenu.appendChild(opt);
   });
+
+  console.log(`🔹 Updated classes for ${ttype} ${tsize}:`, classes);
 }
 
 // ----- Threading Calculation -----
@@ -235,14 +248,16 @@ function calculateThreading() {
     const holeType = document.getElementById("holeType").value;
     const tapType = document.getElementById("tapType").value;
 
+    console.log(`⚙️ Thread Calculation started for ${ttype} ${tsize} ${tclass}`);
+
     const typeData = threadsData?.[ttype];
-    if (!typeData) return alert(`Thread type '${ttype}' not found.`);
+    if (!typeData) throw `Thread type '${ttype}' not found.`;
 
     const sizeData = typeData?.[tsize];
-    if (!sizeData) return alert(`Thread size '${tsize}' not found for ${ttype}.`);
+    if (!sizeData) throw `Thread size '${tsize}' not found for ${ttype}.`;
 
     const classData = sizeData?.[tclass];
-    if (!classData) return alert(`Thread class '${tclass}' not found for ${tsize}.`);
+    if (!classData) throw `Thread class '${tclass}' not found for ${tsize}.`;
 
     const pitch = sizeData.pitch ?? 0;
 
@@ -283,9 +298,8 @@ function calculateThreading() {
 
     // --- Output feed & speed ---
     document.getElementById("rpmThread").innerText = `RPM: ${rpm}`;
-    document.getElementById(
-      "feedThread"
-    ).innerText = `Feed Rate (IPM): ${ipm.toFixed(3)} | Pitch: ${pitch.toFixed(5)} in/rev`;
+    document.getElementById("feedThread").innerText =
+      `Feed Rate (IPM): ${ipm.toFixed(3)} | Pitch: ${pitch.toFixed(5)} in/rev`;
     document.getElementById("threadPeck").innerText = peckText;
 
     // --- Output geometry (compact format) ---
@@ -308,7 +322,7 @@ function calculateThreading() {
     if (classData.type === "internal") {
       geometryHTML += `Minor Diameter: ${makeRange(minorMin, minorMax)}<br>`;
     } else {
-      geometryHTML += `Minor Diameter: ${makeRange(null, minorMax)}<br>`;
+      geometryHTML += `Minor Diameter (UNR Max): ${makeRange(null, minorMax)}<br>`;
     }
 
     geometryHTML += `
@@ -318,12 +332,27 @@ function calculateThreading() {
 
     document.getElementById("threadGeometry").innerHTML = geometryHTML;
 
-    // Highlight missing values
-    document.getElementById("threadGeometry").style.color = geometryHTML.includes("n/a")
-      ? "orange"
-      : "black";
+    document.getElementById("threadGeometry").style.color =
+      geometryHTML.includes("n/a") ? "orange" : "black";
+
+    // --- Console output for debug ---
+    console.log(
+      `🧩 Thread Data → Type: ${ttype}, Size: ${tsize}, Class: ${tclass}, Material: ${mat}`
+    );
+    console.log(
+      `   Geometry → Major: ${makeRange(majorMin, majorMax)}, Minor: ${makeRange(
+        minorMin,
+        minorMax
+      )}, Pitch: ${makeRange(pitchMin, pitchMax)}, Tol: ${safe(tolerance)}`
+    );
+    console.log(
+      `   Feeds → RPM: ${rpm}, Feed: ${ipm.toFixed(3)} ipm, Drill (est.): ${safe(
+        suggestedDrill
+      )}, Peck: ${peckText}`
+    );
+
   } catch (err) {
+    console.error("❌ Thread Calculation Error:", err);
     alert("Input Error: " + err);
   }
 }
-

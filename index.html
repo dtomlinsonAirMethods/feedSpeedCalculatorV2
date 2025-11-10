@@ -172,16 +172,20 @@
 <script>
   Promise.all([
     fetch("material.json").then(r => r.json()),
-    fetch("thread.json").then(r => r.json())
+    fetch("thread.json").then(r => r.json()),
+    fetch("ipt.json").then(r => r.json())
   ])
-    .then(([materials, threads]) => {
+    .then(([materials, threads, ipt]) => {
       window.materialsData = materials;
       window.threadsData = threads;
-      console.log("✅ Material and thread data loaded successfully");
+      window.iptData = ipt;
+      console.log("✅ JSON data loaded:", { materials, threads, ipt });
     })
-    .catch(err => console.error("⚠ Failed to load JSON data:", err))
+    .catch(err => {
+      console.error("⚠ Failed to load JSON data:", err);
+      alert("Error loading data files. Check console for details.");
+    })
     .finally(() => {
-      // After data is ready, load the main logic script
       const script = document.createElement("script");
       script.src = "script.js";
       document.body.appendChild(script);
