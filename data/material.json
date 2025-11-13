@@ -1,34 +1,34 @@
 {
   "7075 Aluminum": {
     "SFM_endmill": 1350,
+    "SFM_shellmill": 1600,
     "SFM_drill": 250,
     "SFM_spot": 600,
     "SFM_reamer": 250,
-    "SFM_thread": 200,
-    "IPT_drill": 0.005 
+    "SFM_thread": 200
   },
   "6061 Aluminum": {
     "SFM_endmill": 1000,
+    "SFM_shellmill": 1400,
     "SFM_drill": 220,
     "SFM_spot": 550,
     "SFM_reamer": 220,
-    "SFM_thread": 180,
-    "IPT_drill": 0.005
+    "SFM_thread": 180
   },
   "Stainless Steel": {
     "SFM_endmill": 200,
+    "SFM_shellmill": 350,
     "SFM_drill": 40,
     "SFM_spot": 180,
     "SFM_reamer": 80,
-    "SFM_thread": 60,
-    "IPT_drill": 0.002
+    "SFM_thread": 60
   },
   "HRS Steel": {
     "SFM_endmill": 175,
+    "SFM_shellmill": 300,
     "SFM_drill": 50,
     "SFM_spot": 150,
     "SFM_reamer": 70,
-    "SFM_thread": 50,
-    "IPT_drill": 0.0015
+    "SFM_thread": 50
   }
 }
