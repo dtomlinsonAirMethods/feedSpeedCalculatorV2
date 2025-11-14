@@ -319,9 +319,32 @@ function calculateDrill() {
     const ipm = rpm * flutes * ipr * reduction;
 
     // --- Pecking logic ---
-    const peckText = pecking
-      ? `Suggested Peck: ${Math.min(depth, dia * 3).toFixed(3)} in`
-      : "No pecking";
+    let peckText = "";
+    let peckAmount = 0;
+    const depthToDia = depth / dia;
+
+    if (!pecking) {
+      peckText = "No pecking";
+    } else {
+      if (dia < 0.125) {
+        // Tiny drill rule
+        peckAmount = Math.min(0.10, dia * 0.75);
+      } else if (depthToDia <= 3) {
+        peckAmount = 0;
+      } else if (depthToDia > 3 && depthToDia <= 6) {
+        peckAmount = dia * 1.5;
+      } else if (depthToDia > 6 && depthToDia <= 10) {
+        peckAmount = dia * 1.0;
+      } else {
+        peckAmount = dia * 0.75;
+      }
+
+      // Never exceed total depth with one peck
+      peckAmount = Math.min(peckAmount, depth);
+
+      if (peckAmount <= 0) peckText = "No pecking";
+      else peckText = `Suggested Peck: ${peckAmount.toFixed(3)} in`;
+    }
     // --- Debug summary ---
     console.groupCollapsed(`CALCULATION SUMMARY → ${drillType.toUpperCase()} (${mat})`);
     console.table({
