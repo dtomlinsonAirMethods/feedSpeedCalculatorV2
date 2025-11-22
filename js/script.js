@@ -299,6 +299,13 @@ function calculateDrill() {
     } else if (drillType === "reamer") {
       sfm = materialsData[mat]?.SFM_reamer || sfm * 0.6;
       ipr *= 0.4; // much lighter feed for reaming
+    } else if (drillType === "countersink") {
+      sfm = materialsData[mat]?.SFM_countersink || materialsData[mat]?.SFM_spot || sfm;
+      ipr = getDynamicFeed("countersink", mat, dia);
+      // Countersinks shouldn't peck unless extremely deep
+      if (pecking) {
+        peckText = "No peck (countersink)";
+      }
     }
 
     // --- Deep hole / stickout reduction ---

@@ -5,7 +5,8 @@
     "SFM_drill": 250,
     "SFM_spot": 600,
     "SFM_reamer": 250,
-    "SFM_thread": 200
+    "SFM_thread": 200,
+    "SFM_countersink": 450
   },
   "6061 Aluminum": {
     "SFM_endmill": 1000,
@@ -13,7 +14,8 @@
     "SFM_drill": 220,
     "SFM_spot": 550,
     "SFM_reamer": 220,
-    "SFM_thread": 180
+    "SFM_thread": 180,
+    "SFM_countersink": 400
   },
   "Stainless Steel": {
     "SFM_endmill": 200,
@@ -21,7 +23,8 @@
     "SFM_drill": 40,
     "SFM_spot": 180,
     "SFM_reamer": 80,
-    "SFM_thread": 60
+    "SFM_thread": 60,
+    "SFM_countersink": 120
   },
   "HRS Steel": {
     "SFM_endmill": 175,
@@ -29,6 +32,7 @@
     "SFM_drill": 50,
     "SFM_spot": 150,
     "SFM_reamer": 70,
-    "SFM_thread": 50
+    "SFM_thread": 50,
+    "SFM_countersink": 100
   }
 }
