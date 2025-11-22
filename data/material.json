@@ -20,8 +20,8 @@
   "Stainless Steel": {
     "SFM_endmill": 200,
     "SFM_shellmill": 350,
-    "SFM_drill": 40,
-    "SFM_spot": 180,
+    "SFM_drill": 60,
+    "SFM_spot": 120,
     "SFM_reamer": 80,
     "SFM_thread": 60,
     "SFM_countersink": 120
