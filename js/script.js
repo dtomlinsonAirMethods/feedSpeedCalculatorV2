@@ -81,13 +81,8 @@ function getDocRecommendation(toolType, material, dia) {
 
   if (bucket === "finish") return "💡 Recommended ADOC: Up to Max LOC";
 
-  if (bucket === "rough") {
-    if (sp >= 31) return "⚠️ Stepover >30% — reduce ADOC to avoid overloading";
-    return "💡 Recommended ADOC: Up to Max LOC";
-  }
-
-  const pctMin = entry[bucket]?.DOC_pct?.min ?? 75;
-  const pctMax = entry[bucket]?.DOC_pct?.max ?? 125;
+  const pctMin = entry[bucket]?.DOC_pct?.min ?? (bucket === "slot" ? 75 : 125);
+  const pctMax = entry[bucket]?.DOC_pct?.max ?? (bucket === "slot" ? 125 : 200);
   return `💡 Recommended ADOC: ${pctMin}% - ${pctMax}% of diameter`;
 }
 
@@ -128,24 +123,37 @@ function calculateEndmill() {
 
     const sdRatio  = stickout / dia;
     let   reduction = 1.0;
-    if (sdRatio > 3.0)      { reduction = 0.70; warningText += `⚠️ Stickout very high (S/D=${sdRatio.toFixed(1)}), feed -30%\n`; }
-    else if (sdRatio > 2.0) { reduction = 0.85; warningText += `⚠️ Stickout high (S/D=${sdRatio.toFixed(1)}), feed -15%\n`; }
+    if (sdRatio > 3.0)       { reduction = 0.70;  warningText += `⚠️ Stickout very high (S/D=${sdRatio.toFixed(1)}), feed -30%\n`; }
+    else if (sdRatio > 2.5) { reduction = 0.775; warningText += `⚠️ Stickout high (S/D=${sdRatio.toFixed(1)}), feed -22.5%\n`; }
+    else if (sdRatio > 2.0) { reduction = 0.85;  warningText += `⚠️ Stickout high (S/D=${sdRatio.toFixed(1)}), feed -15%\n`; }
 
     if (stepover > 0.5) warningText += "⚠️ Stepover >50%\n";
-    if (depth > dia)    warningText += "⚠️ Depth of cut > diameter\n";
     if (!isShell && flutes < 5 && (mat === "HRS Steel" || mat === "Stainless Steel"))
       warningText += "⚠️ IPT/SFM data is based on 5-flute tools — recommend running 5FL for steel\n";
 
     if (isHsm && !isShell) {
-      let recSo = dia <= 0.1875 ? 9 : dia <= 0.25 ? 10 : dia <= 0.3125 ? 11 :
-                  dia <= 0.375  ? 12 : dia <= 0.5  ? 13 : 14;
+      // Base RDOC (%) for aluminum at Haas 10K-15K RPM — scales up with diameter
+      let recSo = dia <= 0.1875 ? 8 : dia <= 0.25 ? 10 : dia <= 0.375 ? 12 :
+                  dia <= 0.5    ? 13 : 15;
+
+      // Material factor — steel runs lower RDOC due to heat and cutting forces
+      if      (mat.includes("Stainless")) recSo *= 0.55;
+      else if (mat.includes("4140"))      recSo *= 0.60;
+      else if (mat.includes("HRS"))       recSo *= 0.70;
+      // Aluminum and Nylatron stay at base
+
+      // Reduce for deep axial cuts
       const docRatio = depth / dia;
-      if (docRatio > 3.0)     recSo *= 0.75;
+      if      (docRatio > 3.0) recSo *= 0.75;
       else if (docRatio > 2.0) recSo *= 0.85;
-      if (sdRatio > 3.0)      recSo *= 0.70;
+
+      // Reduce for long stickout
+      if      (sdRatio > 3.0) recSo *= 0.70;
       else if (sdRatio > 2.0) recSo *= 0.85;
       else if (sdRatio > 1.5) recSo *= 0.90;
-      recSo = Math.max(6, Math.min(recSo, 16));
+
+      const isAlumOrPlastic = mat.includes("7075") || mat.includes("6061") || mat.includes("Nylatron");
+      recSo = Math.max(isAlumOrPlastic ? 6 : 4, Math.min(recSo, isAlumOrPlastic ? 18 : 10));
       warningText += `💡 Recommended Stepover: ${recSo.toFixed(1)}%\n`;
     }
 
@@ -237,7 +245,7 @@ function calculateDrill() {
 
     let rpm = Math.min(Math.floor((sfm * 3.82) / dia), 9500);
     const effectiveReduction = drillType === "reamer" ? 1.0 : reduction;
-    const ipm = rpm * flutes * ipr * effectiveReduction;
+    const ipm = rpm * ipr * effectiveReduction;
 
     if (!peckText) {
       if (!pecking) {
@@ -254,8 +262,12 @@ function calculateDrill() {
       }
     }
 
+    const sfmActualDrill = (rpm * dia) / 3.82;
+    const iprActualDrill = rpm ? ipm / rpm : 0;
     document.getElementById("drill-rpm-val").innerText  = rpm;
     document.getElementById("drill-feed-val").innerText = ipm.toFixed(2);
+    document.getElementById("drill-sfm-val").innerText  = sfmActualDrill.toFixed(1);
+    document.getElementById("drill-ipr-val").innerText  = iprActualDrill.toFixed(5);
     const peckEl = document.getElementById("drill-peck-val");
     peckEl.innerText = peckText;
     peckEl.classList.toggle("show", !!peckText);

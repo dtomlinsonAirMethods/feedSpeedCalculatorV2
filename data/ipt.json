@@ -3,78 +3,90 @@
     "6061 Aluminum": [
       {
         "max": 0.125,
-        "slot":   { "ipt": 0.0008, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.0016, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.0018, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0008, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0014, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 30, "max": 40 } },
+        "finish": { "ipt": 0.0017, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 4, "max": 6 } }
       },
       {
         "max": 0.1875,
-        "slot":   { "ipt": 0.0012, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.0023, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.0021, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0011, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0021, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0019, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
       },
       {
         "max": 0.25,
-        "slot":   { "ipt": 0.0016, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.0031, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.0023, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0015, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0028, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0022, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
       },
       {
         "max": 0.375,
-        "slot":   { "ipt": 0.0024, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.0045, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.0027, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0022, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0041, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0025, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
       },
       {
         "max": 0.5,
-        "slot":   { "ipt": 0.0032, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.0059, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.0027, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0029, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0054, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0029, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
       },
       {
         "max": 0.75,
-        "slot":   { "ipt": 0.0046, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.0085, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.0037, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0041, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0077, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0035, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+      },
+      {
+        "max": 1.0,
+        "slot":   { "ipt": 0.0053, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0098, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0042, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
       }
     ],
 
     "7075 Aluminum": [
       {
         "max": 0.125,
-        "slot":   { "ipt": 0.00072, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.00144, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.00162, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0008, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0014, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 30, "max": 40 } },
+        "finish": { "ipt": 0.0017, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 4, "max": 6 } }
       },
       {
         "max": 0.1875,
-        "slot":   { "ipt": 0.00108, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.00207, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.00189, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0011, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0021, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0019, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
       },
       {
         "max": 0.25,
-        "slot":   { "ipt": 0.00144, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.00279, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.00207, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0015, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0028, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0022, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
       },
       {
         "max": 0.375,
-        "slot":   { "ipt": 0.00216, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.00405, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.00243, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0022, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0041, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0025, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
       },
       {
         "max": 0.5,
-        "slot":   { "ipt": 0.00288, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.00531, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.00243, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0029, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0054, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0029, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
       },
       {
         "max": 0.75,
-        "slot":   { "ipt": 0.00414, "DOC_pct": { "min": 75, "max": 100 }, "stepover_pct": { "min": 100, "max": 100 } },
-        "rough":  { "ipt": 0.00765, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
-        "finish": { "ipt": 0.00333, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+        "slot":   { "ipt": 0.0041, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0077, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0035, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
+      },
+      {
+        "max": 1.0,
+        "slot":   { "ipt": 0.0053, "DOC_pct": { "min": 75, "max": 125 }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0098, "DOC_pct": { "min": 125, "max": 200 }, "stepover_pct": { "min": 7, "max": 99 } },
+        "finish": { "ipt": 0.0042, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 0, "max": 6 } }
       }
     ],
 
@@ -174,6 +186,50 @@
       { "max": 0.5,    "val": 0.004 },
       { "max": 0.625,  "val": 0.005 },
       { "max": 0.75,   "val": 0.006 }
+    ],
+    "4140 Steel": [
+      {
+        "max": 0.125,
+        "slot":   { "ipt": 0.0004, "DOC_pct": { "min": 30, "max": 75  }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0007, "DOC_pct": { "min": 100, "max": 200 }, "stepover_pct": { "min": 10,  "max": 20  } },
+        "finish": { "ipt": 0.0012, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 4,   "max": 6   } }
+      },
+      {
+        "max": 0.1875,
+        "slot":   { "ipt": 0.0007, "DOC_pct": { "min": 30, "max": 75  }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0010, "DOC_pct": { "min": 100, "max": 200 }, "stepover_pct": { "min": 10,  "max": 20  } },
+        "finish": { "ipt": 0.0013, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 4,   "max": 6   } }
+      },
+      {
+        "max": 0.25,
+        "slot":   { "ipt": 0.0009, "DOC_pct": { "min": 30, "max": 75  }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0013, "DOC_pct": { "min": 100, "max": 200 }, "stepover_pct": { "min": 10,  "max": 20  } },
+        "finish": { "ipt": 0.0015, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 4,   "max": 6   } }
+      },
+      {
+        "max": 0.375,
+        "slot":   { "ipt": 0.0013, "DOC_pct": { "min": 30, "max": 75  }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0020, "DOC_pct": { "min": 100, "max": 200 }, "stepover_pct": { "min": 10,  "max": 20  } },
+        "finish": { "ipt": 0.0018, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 4,   "max": 6   } }
+      },
+      {
+        "max": 0.5,
+        "slot":   { "ipt": 0.0017, "DOC_pct": { "min": 30, "max": 75  }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0026, "DOC_pct": { "min": 100, "max": 200 }, "stepover_pct": { "min": 10,  "max": 20  } },
+        "finish": { "ipt": 0.0021, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 4,   "max": 6   } }
+      },
+      {
+        "max": 0.75,
+        "slot":   { "ipt": 0.0024, "DOC_pct": { "min": 30, "max": 75  }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0038, "DOC_pct": { "min": 100, "max": 200 }, "stepover_pct": { "min": 10,  "max": 20  } },
+        "finish": { "ipt": 0.0025, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 4,   "max": 6   } }
+      },
+      {
+        "max": 1.0,
+        "slot":   { "ipt": 0.0030, "DOC_pct": { "min": 30, "max": 75  }, "stepover_pct": { "min": 100, "max": 100 } },
+        "rough":  { "ipt": 0.0048, "DOC_pct": { "min": 100, "max": 200 }, "stepover_pct": { "min": 10,  "max": 20  } },
+        "finish": { "ipt": 0.0030, "DOC_pct": { "min": 200, "max": 200 }, "stepover_pct": { "min": 4,   "max": 6   } }
+      }
     ]
   },
 
@@ -202,6 +258,11 @@
       { "max": 2.0, "val": 0.0010 },
       { "max": 3.0, "val": 0.0012 },
       { "max": 4.0, "val": 0.0014 }
+    ],
+    "4140 Steel": [
+      { "max": 2.0, "val": 0.0020 },
+      { "max": 3.0, "val": 0.0025 },
+      { "max": 4.0, "val": 0.0030 }
     ]
   }
 }
