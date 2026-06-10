@@ -28,7 +28,7 @@
   },
   "HRS Steel": {
     "SFM_endmill": 400,
-    "SFM_shellmill": 300,
+    "SFM_shellmill": 900,
     "SFM_drill": 50,
     "SFM_spot": 247,
     "SFM_reamer": 90,
@@ -46,7 +46,7 @@
   },
   "4140 Steel": {
     "SFM_endmill": 340,
-    "SFM_shellmill": 250,
+    "SFM_shellmill": 900,
     "SFM_drill": 40,
     "SFM_spot": 181,
     "SFM_reamer": 60,
